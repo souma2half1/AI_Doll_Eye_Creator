@@ -24,7 +24,11 @@ AI Doll Eye Creator は、仕様書「AI_Doll_Eye_Creator_spec.text」に基づ�
    pip install -r requirements.txt
    ```
 
-4. `.env` ファイルを作成し、OpenAI API キーなどを設定します。
+4. `config/chatgpt_settings.env.template` をコピーして `config/chatgpt_settings.env` を作成し、OpenAI API キーやモデルを設定します。
+
+   ```bash
+   cp config/chatgpt_settings.env.template config/chatgpt_settings.env
+   ```
 
    ```env
    OPENAI_API_KEY=sk-your-key
@@ -34,11 +38,13 @@ AI Doll Eye Creator は、仕様書「AI_Doll_Eye_Creator_spec.text」に基づ�
    # IMAGE_SIZE=1024x1024
    ```
 
+   > `config/README.md` に詳細な説明があります。
+
 5. （任意）FireAlpaca の実行ファイルパスをアプリから指定できるように準備してください。
 
 使い方
 ------
-1. アプリを起動します。
+1. アプリを起動します。Windows の場合は `起動.batch` をダブルクリックして実行できます。
 
    ```bash
    python main.py
@@ -55,7 +61,10 @@ AI_Doll_Eye_Creator/
 ├─ main.py
 ├─ README.text
 ├─ requirements.txt
-├─ .env           # ユーザーが作成（テンプレートは上記参照）
+├─ 起動.batch     # Windows 用の起動バッチ
+├─ config/
+│  ├─ README.md
+│  └─ chatgpt_settings.env.template
 ├─ output/        # 生成画像の保存先
 └─ AI_Doll_Eye_Creator_spec.text
 ```
