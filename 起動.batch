@@ -1,0 +1,19 @@
+@echo off
+REM ---------------------------------------------
+REM AI Doll Eye Creator 起動スクリプト
+REM 1. 必要であれば仮想環境を有効化してください。
+REM 2. config/chatgpt_settings.env に API 設定を記入してください。
+REM ---------------------------------------------
+setlocal
+
+REM スクリプトの場所に移動
+cd /d "%~dp0"
+
+REM 仮想環境 (.venv) があれば有効化
+if exist .venv\Scripts\activate.bat (
+    call .venv\Scripts\activate.bat
+)
+
+python main.py
+
+pause

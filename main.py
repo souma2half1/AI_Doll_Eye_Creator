@@ -22,7 +22,9 @@ except ImportError:  # pragma: no cover - optional dependency
     OpenAI = None  # type: ignore
 
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR / "config" / "chatgpt_settings.env")
 
 APP_TITLE = "AI Doll Eye Creator"
 WINDOW_SIZE = "480x620"
