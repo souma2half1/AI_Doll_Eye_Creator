@@ -1,0 +1,5 @@
+openai>=1.23.0
+pillow>=10.0.0
+python-dotenv>=1.0.0
+# Tkinter は多くの環境で標準添付されています。pip から取得する場合は以下を利用してください。
+# tk

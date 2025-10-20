@@ -1,0 +1,67 @@
+AI Doll Eye Creator – Desktop Edition
+====================================
+
+概要
+----
+AI Doll Eye Creator は、仕様書「AI_Doll_Eye_Creator_spec.text」に基づいて実装したローカル実行型の Tkinter デスクトップアプリです。色・形状・モチーフなどの条件を GUI で指定すると、OpenAI API を利用してドールアイのデザイン画像を生成し、`output/` フォルダーに PNG 形式で保存します。生成された画像はそのままプレビューでき、FireAlpaca などのペイントソフトで開くためのショートカットも用意しています。
+
+主な機能
+--------
+* 仕様書で定義された色／形状／モチーフ／質感／光沢レベルを選択するドロップダウン UI。
+* 詳細な指示を記述できる自由入力テキストエリア。
+* GPT ベースのプロンプト自動生成と、Image API による 1024x1024 の画像生成。
+* 進捗状況を視覚化するプログレスバーとステータス表示。
+* 生成結果のプレビュー表示、および FireAlpaca 起動のオプション連携。
+* 生成画像のファイル命名規則は `eye_色_形状_YYYYMMDD_HHmm.png`。
+
+準備
+----
+1. Python 3.10 以降をインストールします。
+2. 仮想環境を作成することを推奨します。
+3. 依存ライブラリをインストールします。
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. `.env` ファイルを作成し、OpenAI API キーなどを設定します。
+
+   ```env
+   OPENAI_API_KEY=sk-your-key
+   # 任意: モデルを変更したい場合
+   # PROMPT_MODEL=gpt-5-preview
+   # IMAGE_MODEL=gpt-image-1
+   # IMAGE_SIZE=1024x1024
+   ```
+
+5. （任意）FireAlpaca の実行ファイルパスをアプリから指定できるように準備してください。
+
+使い方
+------
+1. アプリを起動します。
+
+   ```bash
+   python main.py
+   ```
+
+2. 各種パラメーターを選択し、必要に応じて詳細指示を記入します。
+3. 「AI 生成開始」を押すと、プロンプト生成→画像生成→保存→プレビュー更新が自動で行われます。
+4. 生成完了後、「FireAlpaca で開く」ボタンからペイントツールを起動できます（FireAlpaca のパス設定が必要）。
+
+ディレクトリ構成
+----------------
+```
+AI_Doll_Eye_Creator/
+├─ main.py
+├─ README.text
+├─ requirements.txt
+├─ .env           # ユーザーが作成（テンプレートは上記参照）
+├─ output/        # 生成画像の保存先
+└─ AI_Doll_Eye_Creator_spec.text
+```
+
+注意事項
+--------
+* OpenAI API の利用には課金が発生します。API キーを第三者と共有しないでください。
+* 画像生成は時間がかかる場合があります。プログレスバーに従い完了までお待ちください。
+* FireAlpaca 連携は Windows 等で FireAlpaca がインストールされている環境を想定しています。
