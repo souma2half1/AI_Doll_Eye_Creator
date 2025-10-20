@@ -1,0 +1,68 @@
+AI Doll Eye Creator – Desktop Edition 完全仕様書
+
+1. アプリ概要
+本アプリは Python + Tkinter で構築されるローカル実行型デスクトップアプリ。
+ユーザーは GUI で色・形・質感などを指定し、GPT-5 API により自動生成された英語プロンプトを用いて
+OpenAI Image API でドールの瞳デザイン画像を生成する。
+生成画像はローカル保存され、FireAlpaca などのペイントツールで直接開ける。
+
+2. システム構成
+GUI 層: Tkinter - 入力 UI とプレビュー表示
+ビジネスロジック層: PromptBuilder / ImageGenerator - プロンプト生成と画像生成処理
+外部 API 層: OpenAI GPT-5 / Image API - プロンプト翻訳および画像生成
+永続化層: FileManager - 画像保存、ファイル命名管理
+環境設定層: dotenv - API キー管理、パス設定
+
+3. UI 設計
+ウィンドウ: 480x580, タイトル: AI Doll Eye Creator
+要素:
+- 色 (青, 赤, 紫, ピンク, 緑, 金, 銀)
+- 形状 (丸, 楕円, 縦長, 横長)
+- モチーフ (なし, 星, ハート, ウサギ, 月)
+- 質感 (アニメ調, ガラスアイ, 宝石風, メタリック)
+- 光沢レベル (低, 中, 高)
+- 詳細指示テキスト
+- AI 生成開始ボタン
+- プログレスバー
+- プレビューエリア
+
+4. 入出力仕様
+入力: GUI 選択項目 + 詳細指示
+内部生成: GPT-5 英語プロンプト, Image API パラメータ (size=1024x1024)
+出力: PNG, 保存先 output/, ファイル名 eye_色_形状_YYYYMMDD_HHmm.png
+
+5. プロンプト生成ロジック
+GPT-5 に日本語→英語変換を依頼し、色, 形, モチーフ, 質感, 光沢を含める。
+例: "A close-up of a glass-like anime doll eye with an oval shape and bright blue gradient, featuring a star-shaped iris, high gloss, and a dreamy luminous atmosphere."
+
+6. 画像生成処理
+API: client.images.generate()
+出力形式: base64 → Pillow → PNG 保存
+例外処理: API キー未設定, 通信失敗, 保存失敗などをダイアログで通知
+
+7. FireAlpaca 連携 (任意)
+FireAlpaca.exe パス登録 → subprocess で自動起動
+
+8. ディレクトリ構成
+AI_Doll_Eye_Creator/
+├─ main.py
+├─ README.text
+├─ .env
+├─ requirements.txt
+└─ output/
+
+.env:
+OPENAI_API_KEY=sk-xxxxxx
+
+requirements.txt:
+openai>=1.2
+pillow
+python-dotenv
+tk
+
+9. 将来的な拡張
+- プロンプト履歴
+- 色差分出力
+- .mdp 形式出力
+- Electron 版 / Web 版
+- プリセットテンプレート
